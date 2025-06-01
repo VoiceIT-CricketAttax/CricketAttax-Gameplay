@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Player Selection</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your 11 Players</h1>
+        <div class="player-grid">
+        </div>
+        <button id="enter-game-btn" disabled>Enter Game</button>
+
+        <div class="selected-players">
+            <h2>Selected Players</h2>
+            <div class="selected-player-grid"></div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" style="display: none;">
+        <div class="popup">
+            <h2>Confirm Your Team</h2>
+            <div class="popup-player-list"></div>
+            <div class="popup-buttons">
+                <button id="confirm-btn">Confirm</button>
+                <button id="change-btn">Change Selection</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+</html>
