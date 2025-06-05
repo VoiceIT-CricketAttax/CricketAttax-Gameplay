@@ -21,17 +21,63 @@ let opponentPoints = 0;
 let currentRound = 1;
 const maxRounds = 20;
 
+// Toss result setup (can be randomized or controlled)
+//let tossWinner = Math.random() < 0.5 ? 'player' : 'opponent';
+let tossWinner =  localStorage.getItem('tossWinner');
+console.log(tossWinner);
+// let tossChoice = tossWinner === 'player' ? 'bat' : 'bowl'; // simplify: winner always bats
+let tossChoice = localStorage.getItem('batOrField'); // simplify: winner always bats
+console.log(tossChoice);
+gameBoard.innerHTML = `<p>${tossWinner === 'player' ? 'You' : 'Opponent'} won the toss and chose to ${tossChoice}.</p>`;
+
+// Render your players for selection
 function renderYourPlayers() {
     playersGrid.innerHTML = '';
-    selectedPlayers.forEach(player => {
-        const [name, ovrText] = player.split(' (OVR: ');
-        const ovr = parseInt(ovrText.replace(')', ''));
-        const playerBox = document.createElement('div');
-        playerBox.classList.add('player-box');
-        playerBox.textContent = `${name} (OVR: ${ovr})`;
-        playerBox.addEventListener('click', () => selectPlayer({ name, ovr }));
-        playersGrid.appendChild(playerBox);
-    });
+
+    if ((tossWinner === 'player' && tossChoice === 'Bat') || 
+        (tossWinner === 'opponent' && tossChoice === 'Field')) {
+        // Player is batting: select two players (striker + non-striker)
+        gameBoard.innerHTML += `<p>Select Striker and Non-Striker.</p>`;
+        selectedPlayers.forEach(playerObj => {
+            const playerBox = document.createElement('div');
+            playerBox.classList.add('player-box');
+
+            const img = document.createElement('img');
+            img.src = playerObj.image;
+            img.alt = playerObj.name;
+
+            playerBox.appendChild(img);
+
+            const ovrMatch = playerObj.name.match(/\(OVR: (\d+)\)/);
+            const ovr = ovrMatch ? parseInt(ovrMatch[1]) : 0;
+
+            playerBox.addEventListener('click', () => selectPlayer({ name: playerObj.name, ovr }));
+            playersGrid.appendChild(playerBox);
+        });
+
+    } else {
+        // Player is bowling: select only one player
+        gameBoard.innerHTML += `<p>Select one player to field/bowl.</p>`;
+        selectedPlayers.forEach(playerObj => {
+            const playerBox = document.createElement('div');
+            playerBox.classList.add('player-box');
+
+            const img = document.createElement('img');
+            img.src = playerObj.image;
+            img.alt = playerObj.name;
+
+            playerBox.appendChild(img);
+
+            const ovrMatch = playerObj.name.match(/\(OVR: (\d+)\)/);
+            const ovr = ovrMatch ? parseInt(ovrMatch[1]) : 0;
+
+            playerBox.addEventListener('click', () => {
+                striker = { name: playerObj.name, ovr };
+                startRound();
+            });
+            playersGrid.appendChild(playerBox);
+        });
+    }
 }
 
 function selectPlayer(player) {
@@ -50,22 +96,47 @@ function selectPlayer(player) {
 }
 
 function startRound() {
-    const opponent = allPlayers[Math.floor(Math.random() * allPlayers.length)];
-    gameBoard.innerHTML = `
-        <div>
+    const opponentStriker = allPlayers[Math.floor(Math.random() * allPlayers.length)];
+    let opponentNonStriker = allPlayers[Math.floor(Math.random() * allPlayers.length)];
+    while (opponentNonStriker.name === opponentStriker.name) {
+        opponentNonStriker = allPlayers[Math.floor(Math.random() * allPlayers.length)];
+    }
+
+    if ((tossWinner === 'player' && tossChoice === 'Bat') || 
+        (tossWinner === 'opponent' && tossChoice === 'Field')) {
+        // Player batting → compare player striker vs opponent random
+        const opponent = allPlayers[Math.floor(Math.random() * allPlayers.length)];
+        gameBoard.innerHTML = `
             <p><strong>Your Striker:</strong> ${striker.name} (OVR: ${striker.ovr})</p>
             <p><strong>Opponent Player:</strong> ${opponent.name} (OVR: ${opponent.ovr})</p>
-        </div>
-    `;
+        `;
 
-    if (striker.ovr > opponent.ovr) {
-        playerPoints++;
-        roundResult.textContent = 'You win this round!';
-    } else if (striker.ovr < opponent.ovr) {
-        opponentPoints++;
-        roundResult.textContent = 'Opponent wins this round!';
+        if (striker.ovr > opponent.ovr) {
+            playerPoints++;
+            roundResult.textContent = 'You win this round!';
+        } else if (striker.ovr < opponent.ovr) {
+            opponentPoints++;
+            roundResult.textContent = 'Opponent wins this round!';
+        } else {
+            roundResult.textContent = 'It\'s a draw!';
+        }
+
     } else {
-        roundResult.textContent = 'It\'s a draw!';
+        // Opponent batting → compare opponent striker vs opponent non-striker
+        gameBoard.innerHTML = `
+            <p><strong>Opponent Striker:</strong> ${opponentStriker.name} (OVR: ${opponentStriker.ovr})</p>
+            <p><strong>Opponent Non-Striker:</strong> ${opponentNonStriker.name} (OVR: ${opponentNonStriker.ovr})</p>
+        `;
+
+        if (opponentStriker.ovr > opponentNonStriker.ovr) {
+            opponentPoints++;
+            roundResult.textContent = 'Opponent striker wins this round!';
+        } else if (opponentStriker.ovr < opponentNonStriker.ovr) {
+            opponentPoints++;
+            roundResult.textContent = 'Opponent non-striker wins this round!';
+        } else {
+            roundResult.textContent = 'It\'s a draw!';
+        }
     }
 
     updateScoreboard();
@@ -77,7 +148,7 @@ function startRound() {
         striker = null;
         nonStriker = null;
         roundCountDiv.textContent = `Round ${currentRound} / ${maxRounds}`;
-        gameBoard.innerHTML += `<p>Select two new players for next round.</p>`;
+        renderYourPlayers();
     }
 }
 

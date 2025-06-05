@@ -104,12 +104,17 @@ h1, h2 {
 
 .player-box {
     background: #f1f1f1;
-    padding: 10px 15px;
+    padding: 20px 25px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
+.player-box img {
+    width: 90px;    
+    height: 160px;
+    object-fit: cover;  
+    margin-bottom: 5px; 
+}
 .player-box:hover {
     background: #d1e7dd;
 }

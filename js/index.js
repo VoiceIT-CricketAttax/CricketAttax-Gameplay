@@ -5,10 +5,23 @@ const popupPlayerList = document.querySelector('.popup-player-list');
 const confirmBtn = document.getElementById('confirm-btn');
 const changeBtn = document.getElementById('change-btn');
 
+    /* const overlay = document.createElement('div');
+    overlay.classList.add('player-overlay');
+    overlay.textContent = `Player ${i} (OVR: ${Math.floor(Math.random() * 100)})`; */
+
 for (let i = 1; i <= 25; i++) {
     const playerBox = document.createElement('div');
     playerBox.classList.add('player-box');
-    playerBox.textContent = `Player ${i} (OVR: ${Math.floor(Math.random() * 100)})`;
+
+    const playerImg = document.createElement('img');
+    playerImg.src = `images/player${i}.jpg`;
+    playerImg.alt = `Player ${i}`;
+    playerImg.classList.add('player-image');
+
+    const playerOVR = Math.floor(Math.random() * 100);
+    playerBox.dataset.name = `Player ${i} (OVR: ${playerOVR})`; // store in dataset
+
+    playerBox.appendChild(playerImg);
 
     playerBox.addEventListener('click', () => {
         const selectedPlayers = document.querySelectorAll('.player-box.selected');
@@ -29,7 +42,7 @@ for (let i = 1; i <= 25; i++) {
         updatedSelectedPlayers.forEach((player) => {
             const selectedPlayerBox = document.createElement('div');
             selectedPlayerBox.classList.add('selected-player-box');
-            selectedPlayerBox.textContent = player.textContent;
+            selectedPlayerBox.textContent = player.dataset.name; // get from dataset
             selectedPlayerGrid.appendChild(selectedPlayerBox);
         });
     });
@@ -42,10 +55,11 @@ enterGameBtn.addEventListener('click', () => {
     if (selectedPlayers.length !== 11) {
         alert('Choose 11 players to continue the game.');
     } else {
+        // Fill popup with player names
         popupPlayerList.innerHTML = '';
         selectedPlayers.forEach((player) => {
             const playerItem = document.createElement('div');
-            playerItem.textContent = player.textContent;
+            playerItem.textContent = player.dataset.name; // fix here
             popupPlayerList.appendChild(playerItem);
         });
         popupOverlay.style.display = 'flex';
@@ -53,7 +67,11 @@ enterGameBtn.addEventListener('click', () => {
 });
 
 confirmBtn.addEventListener('click', () => {
-    const selectedPlayers = Array.from(document.querySelectorAll('.player-box.selected')).map(player => player.textContent);
+    const selectedPlayers = Array.from(document.querySelectorAll('.player-box.selected')).map(player => ({
+        name: player.dataset.name,
+        image: player.querySelector('img').src // grab the image src
+    }));
+
     localStorage.setItem('selectedPlayers', JSON.stringify(selectedPlayers));
 
     popupOverlay.innerHTML = `
@@ -65,11 +83,14 @@ confirmBtn.addEventListener('click', () => {
     `;
 
     setTimeout(() => {
-        window.location.href = 'toss.html';
+        window.location.href = 'Toss.html';
     }, 2000);
 });
+
 
 changeBtn.addEventListener('click', () => {
     popupOverlay.style.display = 'none';
 });
 
+   
+ 
