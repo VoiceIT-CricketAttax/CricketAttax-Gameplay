@@ -83,7 +83,7 @@ confirmBtn.addEventListener('click', () => {
     `;
 
     setTimeout(() => {
-        window.location.href = 'Toss.html';
+        window.location.href = 'toss.html';
     }, 2000);
 });
 
