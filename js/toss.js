@@ -61,5 +61,5 @@ batBtn.addEventListener('click', () => {
 
 fieldBtn.addEventListener('click', () => {
     localStorage.setItem('batOrField', 'Field');
-    window.location.href = 'Game.html';
+    window.location.href = 'game.html';
 });
