@@ -58,7 +58,7 @@ tailBtn.addEventListener('click', () => performToss('Tail'));
 
 batBtn.addEventListener('click', () => {
     localStorage.setItem('batOrField', 'Bat');
-    window.location.href = 'Game.html';
+    window.location.href = 'game.html';
 });
 
 fieldBtn.addEventListener('click', () => {
