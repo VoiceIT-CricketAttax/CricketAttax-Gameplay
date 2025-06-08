@@ -46,7 +46,7 @@ function performToss(userChoice) {
 
             setTimeout(() => {
                 alert(`Opponent chose to ${opponentChoice}. Moving to game...`);
-                window.location.href = 'Game.html';
+                window.location.href = 'game.html';
             }, 2000);
         }
     }, 1500);
