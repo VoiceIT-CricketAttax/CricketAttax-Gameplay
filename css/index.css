@@ -1,29 +1,27 @@
 body {
     font-family: Arial, sans-serif;
-    background: #f9f9f9;
+    background: #000000; /* Black background */
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #1e1e1e;
-    color: white;
+    background-color: #818286; /* Gray */
+    color: #FFFFFF; /* White */
     text-align: center;
     padding: 20px;
     font-family: 'Arial', sans-serif;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
-
 
 .container {
     max-width: 1000px;
     margin: 40px auto;
     text-align: center;
-    background: #fff;
+    background: #FFFFFF; /* White */
     padding: 20px;
     border-radius: 10px;
 }
-
 
 .player-grid {
     display: grid;
@@ -33,16 +31,17 @@ header {
 }
 
 .player-box {
-    background-color: #f0f0f0;
+    background-color: #818286; /* Gray */
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #FF6E00; /* Orange border */
     cursor: pointer;
     border-radius: 8px;
 }
 
 .player-box.selected {
-    background-color: #a3d8a3;
+    background-color: #FF6E00; /* Orange */
     font-weight: bold;
+    color: #FFFFFF; /* White text */
 }
 
 .selected-players {
@@ -56,9 +55,9 @@ header {
 }
 
 .selected-player-box {
-    background-color: #f0f0f0;
+    background-color: #818286; /* Gray */
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #FF6E00;
     border-radius: 8px;
 }
 
@@ -77,7 +76,7 @@ header {
 }
 
 .popup {
-    background: white;
+    background: #FFFFFF;
     padding: 20px;
     border-radius: 10px;
     width: 300px;
@@ -97,16 +96,18 @@ header {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    background-color: #FF6E00;
+    color: #FFFFFF;
 }
 
 .popup-buttons button:hover {
-    background: #ddd;
+    background: #e65c00;
 }
 
 /* Loader */
 .loader {
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #3498db;
+    border: 5px solid #818286;
+    border-top: 5px solid #FF6E00;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -126,23 +127,25 @@ header {
     cursor: pointer;
     border: none;
     border-radius: 6px;
-    background-color: #3498db;
-    color: white;
+    background-color: #FF6E00;
+    color: #FFFFFF;
 }
 
 .toss-buttons button:hover {
-    background-color: #2980b9;
+    background-color: #e65c00;
 }
 
 .toss-result {
     margin-top: 20px;
     font-size: 18px;
     font-weight: bold;
+    color: #FFFFFF;
 }
+
 .toss-result.spinning {
     font-size: 18px;
     font-style: italic;
-    color: #888;
+    color: #818286;
     animation: spinText 1.5s ease-in-out infinite;
 }
 
@@ -164,7 +167,9 @@ header {
 }
 
 .player-box.selected {
-    border: 2px solid #28a745; /* green border when selected */
+    border: 2px solid #FF6E00;
+    background-color: #FF6E00;
+    color: #FFFFFF;
 }
 
 .player-box:hover {
@@ -182,7 +187,7 @@ header {
     bottom: 0;
     width: 100%;
     background: rgba(0,0,0,0.6);
-    color: #fff;
+    color: #FFFFFF;
     text-align: center;
     font-size: 12px;
     padding: 4px 2px;
