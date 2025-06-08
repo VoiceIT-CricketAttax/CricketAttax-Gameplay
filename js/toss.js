@@ -26,6 +26,8 @@ if (selectedPlayers.length === 0) {
 }
 
 function performToss(userChoice) {
+    headBtn.disabled = true;
+    tailBtn.disabled = true;
     tossResult.textContent = 'Spinning the coin... 🌀';
     setTimeout(() => {
         const coin = Math.random() < 0.5 ? 'Head' : 'Tail';
