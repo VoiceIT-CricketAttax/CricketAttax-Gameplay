@@ -18,7 +18,7 @@ header {
     max-width: 1000px;
     margin: 40px auto;
     text-align: center;
-    background: #FFFFFF; /* White */
+    background: #FF6E00; /* White */
     padding: 20px;
     border-radius: 10px;
 }
@@ -39,7 +39,7 @@ header {
 }
 
 .player-box.selected {
-    background-color: #FF6E00; /* Orange */
+    background-color: #a3d8a3; /* Orange */
     font-weight: bold;
     color: #FFFFFF; /* White text */
 }
