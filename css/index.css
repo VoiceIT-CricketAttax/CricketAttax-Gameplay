@@ -1,13 +1,14 @@
 body {
     font-family: Arial, sans-serif;
-    background: #000000; /* Black background */
+    background: #0d0d0d; /* Dark background */
     margin: 0;
     padding: 0;
+    color: white;
 }
 
 header {
-    background-color: #818286; /* Gray */
-    color: #FFFFFF; /* White */
+    background-color: #1a1a1a;
+    color: #ff9933;
     text-align: center;
     padding: 20px;
     font-family: 'Arial', sans-serif;
@@ -18,9 +19,10 @@ header {
     max-width: 1000px;
     margin: 40px auto;
     text-align: center;
-    background: #FF6E00; /* White */
+    background: #1a1a1a;
     padding: 20px;
     border-radius: 10px;
+    border: 1px solid #ff6600;
 }
 
 .player-grid {
@@ -31,17 +33,24 @@ header {
 }
 
 .player-box {
-    background-color: #818286; /* Gray */
+    background-color: #262626;
     padding: 20px;
-    border: 1px solid #FF6E00; /* Orange border */
+    border: 2px solid transparent;
     cursor: pointer;
     border-radius: 8px;
+    color: white;
+    transition: transform 0.2s, border 0.2s;
 }
 
 .player-box.selected {
-    background-color: #a3d8a3; /* Orange */
+    background-color: #ff6600;
     font-weight: bold;
-    color: #FFFFFF; /* White text */
+    color: #ffffff;
+    border: 2px solid #ff9933;
+}
+
+.player-box:hover {
+    transform: scale(1.05);
 }
 
 .selected-players {
@@ -55,10 +64,11 @@ header {
 }
 
 .selected-player-box {
-    background-color: #818286; /* Gray */
+    background-color: #262626;
     padding: 10px;
-    border: 1px solid #FF6E00;
+    border: 1px solid #ff6600;
     border-radius: 8px;
+    color: white;
 }
 
 /* Popup overlay */
@@ -76,11 +86,13 @@ header {
 }
 
 .popup {
-    background: #FFFFFF;
+    background: #1a1a1a;
     padding: 20px;
     border-radius: 10px;
     width: 300px;
     text-align: center;
+    border: 1px solid #ff6600;
+    color: white;
 }
 
 .popup-player-list {
@@ -96,8 +108,9 @@ header {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #FF6E00;
-    color: #FFFFFF;
+    background-color: #ff6600;
+    color: #ffffff;
+    transition: background-color 0.3s;
 }
 
 .popup-buttons button:hover {
@@ -106,8 +119,8 @@ header {
 
 /* Loader */
 .loader {
-    border: 5px solid #818286;
-    border-top: 5px solid #FF6E00;
+    border: 5px solid #1a1a1a;
+    border-top: 5px solid #ff6600;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -127,8 +140,9 @@ header {
     cursor: pointer;
     border: none;
     border-radius: 6px;
-    background-color: #FF6E00;
-    color: #FFFFFF;
+    background-color: #ff6600;
+    color: #ffffff;
+    transition: background-color 0.3s;
 }
 
 .toss-buttons button:hover {
@@ -139,7 +153,7 @@ header {
     margin-top: 20px;
     font-size: 18px;
     font-weight: bold;
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .toss-result.spinning {
@@ -152,28 +166,6 @@ header {
 @keyframes spinText {
     0% { transform: rotateY(0deg); }
     100% { transform: rotateY(360deg); }
-}
-
-.player-box {
-    width: 120px;
-    height: 180px;
-    position: relative;
-    margin: 10px;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: transform 0.2s, border 0.2s;
-}
-
-.player-box.selected {
-    border: 2px solid #FF6E00;
-    background-color: #FF6E00;
-    color: #FFFFFF;
-}
-
-.player-box:hover {
-    transform: scale(1.05);
 }
 
 .player-image {
